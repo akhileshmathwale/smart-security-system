@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# cutom
+src/cascade
+src/trainer
+
 # C extensions
 *.so
 
