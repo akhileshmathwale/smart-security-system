@@ -1,1 +1,1 @@
-from .custom import DatabaseException
+from .custom import DatabaseException, CameraOpeningError

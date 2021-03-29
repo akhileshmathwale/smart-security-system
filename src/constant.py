@@ -1,11 +1,11 @@
 # cascade file
-CASCADE_FILE = "./cascade/haarcascade_frontalface_default.xml"
+CASCADE_FILE = "./src/cascade/haarcascade_frontalface_default.xml"
 
 # trained file
-TRAINED_FILE = "./trainer/trainer.yml"
+TRAINED_FILE = "./src/trainer/trainer.yml"
 
 # camera capture id
-CAMERA_ID = 2
+CAMERA_ID = 0
 
 # input cam height, width
 VID_WIDTH = 640
@@ -15,10 +15,10 @@ VID_HEIGHT = 480
 DELAY = 3
 
 # datastore specific
-DB_FILE = "./database/datastore.db"
+DB_FILE = "./src/database/datastore.db"
 
 # images dataset folder
-DATASET = "./dataset"
+DATASET = "./src/dataset"
 IMAGE_COUNT = 5
 
 # minimum face detection confidence (0 is accurate)

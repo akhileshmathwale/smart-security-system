@@ -7,6 +7,7 @@ from ..constant import (
     CASCADE_FILE, VID_WIDTH, VID_HEIGHT, DELAY, DATASET, IMAGE_COUNT, TRAINED_FILE, CAMERA_ID
 )
 from ..database import DataStore
+from ..exception import CameraOpeningError
 
 # initializing the classifier
 face_detector = cv2.CascadeClassifier(CASCADE_FILE)
@@ -32,6 +33,10 @@ def add_new_entry():
 
     while count < IMAGE_COUNT:
         ret, img = cam.read()
+
+        if not ret:
+            raise CameraOpeningError(CAMERA_ID)
+
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         face = face_detector.detectMultiScale(gray, 1.3, 5)
 

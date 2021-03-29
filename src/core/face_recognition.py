@@ -4,6 +4,7 @@ from ..constant import (
     CASCADE_FILE, TRAINED_FILE, VID_WIDTH, VID_HEIGHT, MIN_FACE_CONF, CAMERA_ID
 )
 from ..database import DataStore
+from ..exception import CameraOpeningError
 
 
 def recognize():
@@ -20,6 +21,10 @@ def recognize():
 
     while count < 2:
         ret, img = cam.read()
+
+        if not ret:
+            raise CameraOpeningError(CAMERA_ID)
+
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         faces = classifier.detectMultiScale(
