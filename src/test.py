@@ -1,4 +1,4 @@
 from .entry import add_new_entry
+from .core import recognize, detect
 
-print(open("./src/database/datastore.py"))
-add_new_entry()
+detect()

@@ -19,14 +19,13 @@ def recognize():
     # test
     count = 0
 
-    while count < 2:
+    while count < 20:
         ret, img = cam.read()
 
         if not ret:
             raise CameraOpeningError(CAMERA_ID)
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
         faces = classifier.detectMultiScale(
             gray,
             scaleFactor=1.3,
