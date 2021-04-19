@@ -1,4 +1,8 @@
 from .entry import add_new_entry
-from .core import recognize, detect
+from .core import recognize, detect, setup, cleanup
 
-detect()
+print("Running the motion sensor")
+setup()
+cleanup()
+print("Done")
+

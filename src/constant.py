@@ -27,3 +27,6 @@ MIN_FACE_CONF = 60
 # threshold for motion detection
 MOTION_THRESHOLD = 50
 
+# motion sensor values
+MS_IN_PIN = 23
+MS_OUT_PIN = 24
