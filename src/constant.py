@@ -30,3 +30,5 @@ MOTION_THRESHOLD = 50
 # motion sensor values
 MS_IN_PIN = 23
 MS_OUT_PIN = 24
+
+MS_DELAY = 0.1
