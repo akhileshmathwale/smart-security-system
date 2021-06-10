@@ -2,6 +2,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 
 from ..constant import (MS_IN_PIN, MS_DELAY, COMM_MOTION_DETECTED)
+
 COMM = None
 
 
@@ -17,7 +18,7 @@ def setup(comm):
     try:
         print("Waiting for motion...")
         sleep(2)  # to stabilize sensor
-        GPIO.add_event_detect(MS_IN_PIN, GPIO.RISING, callback=lambda x : on_detect_motion(comm))
+        GPIO.add_event_detect(MS_IN_PIN, GPIO.RISING, callback=lambda x: on_detect_motion(comm))
         while True:
             sleep(MS_DELAY)
     except:

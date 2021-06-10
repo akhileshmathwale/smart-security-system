@@ -31,3 +31,7 @@ class DataStore:
             return val[key]
         else:
             raise DatabaseException(key)
+
+    @staticmethod
+    def get_all_ids():
+        return pickle.load(DataStore.load())

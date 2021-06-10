@@ -1,29 +1,51 @@
 import time
 
-from src.core import setup, recognize
-from src.entry import match_finger
-from src.constant import COMM_MOTION_DETECTED
+from src.core import setup, Recognize
+from src.entry import FingerEntry
+from src.constant import COMM_MOTION_DETECTED, COMM_FACE_DETECTED
 from multiprocessing import Pipe, Process
+
 
 sender, receiver = Pipe(duplex=True)
 
-
 print("Booting up.....")
-p = Process(target=setup, args=(sender,))
-p.start()
+motion_process = Process(target=setup, args=(sender,))
+# motion_process.start()  # motion sensor is ready
 
-stop = True
+# image recognizer
+recognizer = Recognize()
+recognizer_process = Process(target=recognizer.recognize, args=(sender, ))
+
+# test
+recognizer_process.start()
+
+# finger matching object
+finger = FingerEntry()
+# finger.initialize()  # looks for the sensor [comment if not connected]
+
+stop = False
 while True:
     data = receiver.recv()
-    if data == COMM_MOTION_DETECTED and stop:
-        #recognize()
-        stop = False
-        
+    if data == COMM_MOTION_DETECTED and not stop:
+        stop = True
+
         # finger scan
-        if match_finger():
-            print("Friendly detected...")
+        if finger.match_finger():
+            print("[FINGER] Friendly Detected...")
         else:
-            print("Intruder detected...")
+            print("[FINGER] Intruder Detected...")
+
+        # starting the face recognizer
+        recognizer_process.start()
 
         time.sleep(60)  # delay for next response
-        stop = True  # waiting for new response
+        stop = False  # waiting for new response
+
+    if data == COMM_FACE_DETECTED and not stop:
+        print("[FACE] Friendly Detected...")
+
+        # ending the recognizer process
+        recognizer_process.terminate()
+        recognizer.stop()
+
+        stop = False
