@@ -1,8 +1,14 @@
-from .entry import add_new_entry
-from .core import recognize, detect, setup, cleanup
+from src.entry import add_new_finger, match_finger, del_finger
 
-print("Running the motion sensor")
-setup()
-cleanup()
-print("Done")
+# print("Running the motion sensor")
+# setup()
+# cleanup()
+# print("Done")
 
+print("testing for finger sensor")
+if add_new_finger():
+    match_finger()  
+
+#match_finger()    
+
+# del_finger()

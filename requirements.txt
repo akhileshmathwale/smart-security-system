@@ -1,2 +1,6 @@
 opencv-contrib-python
-numpy~=1.20.0
+numpy
+pyfingerprint~=1.5
+rpi
+pyserial
+board

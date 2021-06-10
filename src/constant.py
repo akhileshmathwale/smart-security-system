@@ -28,7 +28,12 @@ MIN_FACE_CONF = 60
 MOTION_THRESHOLD = 50
 
 # motion sensor values
-MS_IN_PIN = 23
-MS_OUT_PIN = 24
-
+MS_IN_PIN = 21
 MS_DELAY = 0.1
+
+# finger sensor values
+# min no of prints
+MIN_FINGER_PRINTS = 5
+
+# communication ids
+COMM_MOTION_DETECTED = "motion_detected"

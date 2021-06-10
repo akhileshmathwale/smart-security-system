@@ -1,26 +1,29 @@
 from time import sleep
 import RPi.GPIO as GPIO
 
-from ..constant import ( MS_IN_PIN, MS_OUT_PIN, MS_DELAY )
+from ..constant import (MS_IN_PIN, MS_DELAY, COMM_MOTION_DETECTED)
+COMM = None
 
-def on_detect_motion(channel):
-	print("Motion detected")
-	GPIO.output(MS_OUT_PIN, True)
-	sleep(3)
-	GPIO.output(MS_OUT_PIN, False)
 
-def setup():
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(MS_IN_PIN, GPIO.IN) #PIR
-	GPIO.setup(MS_OUT_PIN, GPIO.OUT)
+def on_detect_motion(sender):
+    print("Motion detected")
+    sender.send(COMM_MOTION_DETECTED)
 
-	try:
-		sleep(2) # to stabilize sensor
-		GPIO.add_event_detect(MS_IN_PIN , GPIO.RISING, callback=on_detect_motion)
-		while True:
-			sleep(MS_DELAY)
-	except:
-		GPIO.cleanup()
+
+def setup(comm):
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(MS_IN_PIN, GPIO.IN)  # PIR
+
+    try:
+        print("Waiting for motion...")
+        sleep(2)  # to stabilize sensor
+        GPIO.add_event_detect(MS_IN_PIN, GPIO.RISING, callback=lambda x : on_detect_motion(comm))
+        while True:
+            sleep(MS_DELAY)
+    except:
+        print("Error in motion sensor")
+        GPIO.cleanup()
+
 
 def cleanup():
-	GPIO.cleanup()
+    GPIO.cleanup()
