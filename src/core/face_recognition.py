@@ -23,7 +23,7 @@ class Recognize:
         self._cam.release()
 
     def recognize(self, comm):
-        print("waiting for face")
+        print("Waiting for face")
         while not self._stop:
             ret, img = self._cam.read()
 

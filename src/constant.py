@@ -38,3 +38,5 @@ MIN_FINGER_PRINTS = 5
 # communication ids
 COMM_MOTION_DETECTED = "motion_detected"
 COMM_FACE_DETECTED = "face_detected"
+COMM_FINGER_DETECTED = "finger_detected"
+COMM_INTRUDER_DETECTED = "intruder_detected"

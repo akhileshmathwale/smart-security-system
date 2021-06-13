@@ -1,9 +1,7 @@
 import adafruit_fingerprint
 import serial
 
-from ..constant import MIN_FINGER_PRINTS
-
-uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=10)
+from ..constant import MIN_FINGER_PRINTS, COMM_FINGER_DETECTED, COMM_INTRUDER_DETECTED
 
 
 class FingerEntry:
@@ -11,6 +9,7 @@ class FingerEntry:
         self._finger = None
 
     def initialize(self):
+        uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=10)
         self._finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
     def handle_error(self, error):
@@ -77,7 +76,7 @@ class FingerEntry:
         print("Done")
         return True
 
-    def match_finger(self):
+    def match_finger(self, comm):
         def detect():
             print("Waiting for image...")
             while self._finger.get_image() != adafruit_fingerprint.OK:
@@ -92,8 +91,10 @@ class FingerEntry:
 
         if detect():
             print("Detected #", self._finger.finger_id, "with confidence", self._finger.confidence)
+            comm.send(COMM_FINGER_DETECTED)
         else:
             print("Finger not found")
+            comm.send(COMM_INTRUDER_DETECTED)
 
     def del_finger(self):
         location = int(input("Enter id (1 - 127)"))
