@@ -3,13 +3,14 @@ import serial
 
 from ..constant import MIN_FINGER_PRINTS
 
+uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=10)
+
 
 class FingerEntry:
     def __init__(self):
         self._finger = None
 
     def initialize(self):
-        uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=10)
         self._finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
     def handle_error(self, error):

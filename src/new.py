@@ -4,7 +4,7 @@ from src.entry import FaceEntry
 
 face_entry = FaceEntry()
 finger_entry = FingerEntry()
-# finger_entry.initialize()  # looks for the sensor [comment if not connected]
+finger_entry.initialize()  # looks for the sensor [comment if not connected]
 
 print("testing for finger sensor")
 if finger_entry.add_new_finger():

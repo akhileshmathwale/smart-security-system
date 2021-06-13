@@ -43,6 +43,7 @@ class Recognize:
                 if confidence < MIN_FACE_CONF:
                     print(f"[INFO] {DataStore.read(id_)} face detected.")
                     comm.send(COMM_FACE_DETECTED)
+                    self._stop = True
 
                 else:
                     print(f"[INFO] Unknown face detected.")

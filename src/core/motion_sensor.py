@@ -7,7 +7,7 @@ COMM = None
 
 
 def on_detect_motion(sender):
-    print("Motion detected")
+    print("[MOTION] Motion detected")
     sender.send(COMM_MOTION_DETECTED)
 
 
