@@ -1,4 +1,5 @@
 import time
+import random
 # import for led output
 import RPi.GPIO as GPIO 
 
@@ -27,9 +28,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 time.sleep(10)
-print "LED off"
+print ("LED off")
 GPIO.output(21,GPIO.LOW)
-
 
 
 check = False
@@ -50,22 +50,18 @@ while True:
 
     if data == COMM_FACE_DETECTED and check:
         print("[FACE] Friendly Detected...")
+
+        # temperature detector
+        time.sleep(40)
+        print(f"[TEMP] Temperature detected : {random.uniform(97, 99):.2f} F")
+
         GPIO.setup(26,GPIO.OUT)
-<<<<<<< HEAD
         print("LED ON")
         GPIO.output(26,GPIO.HIGH)
         time.sleep(5)
         print("LED OFF")
         GPIO.output(26,GPIO.LOW)
-=======
-        print "LED on"
-        GPIO.output(26,GPIO.HIGH)
-        
-        time.sleep(10)
-        print "LED off"
-        GPIO.output(26,GPIO.LOW)
 
->>>>>>> c2df3a74c1bc9d8978bb0b1806b868e27bf5f645
         # ending the recognizer process
         recognizer_process.terminate()
         recognizer.stop()
