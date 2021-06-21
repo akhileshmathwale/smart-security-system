@@ -1,5 +1,6 @@
 import time
-import RPi.GPIO as GPIO
+# import for led output
+import RPi.GPIO as GPIO 
 
 from src.core import setup, Recognize
 from src.entry import FingerEntry
@@ -22,6 +23,15 @@ recognizer = Recognize()
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+time.sleep(10)
+print "LED off"
+GPIO.output(21,GPIO.LOW)
+
+
+
 check = False
 while True:
     data = receiver.recv()
@@ -41,11 +51,21 @@ while True:
     if data == COMM_FACE_DETECTED and check:
         print("[FACE] Friendly Detected...")
         GPIO.setup(26,GPIO.OUT)
+<<<<<<< HEAD
         print("LED ON")
         GPIO.output(26,GPIO.HIGH)
         time.sleep(5)
         print("LED OFF")
         GPIO.output(26,GPIO.LOW)
+=======
+        print "LED on"
+        GPIO.output(26,GPIO.HIGH)
+        
+        time.sleep(10)
+        print "LED off"
+        GPIO.output(26,GPIO.LOW)
+
+>>>>>>> c2df3a74c1bc9d8978bb0b1806b868e27bf5f645
         # ending the recognizer process
         recognizer_process.terminate()
         recognizer.stop()
