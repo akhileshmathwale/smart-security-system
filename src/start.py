@@ -1,4 +1,5 @@
 import time
+import RPi.GPIO as GPIO
 
 from src.core import setup, Recognize
 from src.entry import FingerEntry
@@ -18,6 +19,8 @@ motion_process.start()  # motion sensor is ready
 
 # image recognizer
 recognizer = Recognize()
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 check = False
 while True:
@@ -37,7 +40,12 @@ while True:
 
     if data == COMM_FACE_DETECTED and check:
         print("[FACE] Friendly Detected...")
-
+        GPIO.setup(26,GPIO.OUT)
+        print("LED ON")
+        GPIO.output(26,GPIO.HIGH)
+        time.sleep(5)
+        print("LED OFF")
+        GPIO.output(26,GPIO.LOW)
         # ending the recognizer process
         recognizer_process.terminate()
         recognizer.stop()
@@ -46,7 +54,11 @@ while True:
 
     if data == COMM_FINGER_DETECTED and check:
         print("[FINGER] Friendly Detected...")
-
+        GPIO.setup(26,GPIO.OUT)
+        print("LED ON")
+        GPIO.output(26,GPIO.HIGH)
+        time.sleep(5)
+        GPIO.output(26,GPIO.LOW)
         if recognizer_process.is_alive:
             recognizer_process.terminate()
 
